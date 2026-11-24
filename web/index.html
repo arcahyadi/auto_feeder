@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automation Feeder</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div id="app" hidden>
+  <aside class="sidebar" aria-label="Menu fitur">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">AF</span>
+      <span class="brand-name">Automation Feeder</span>
+    </div>
+    <nav id="nav" aria-label="Fitur"></nav>
+    <div class="sidebar-foot">
+      <button type="button" class="btn ghost small" id="logout">Keluar</button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="conn" id="conn-info" title="Koneksi Feeder"></div>
+      <div class="topbar-actions">
+    <label class="field inline" for="semester">
+          <span>Semester</span>
+          <select id="semester"></select>
+        </label>
+    <label class="field inline" for="prodi">
+          <span>Prodi</span>
+          <select id="prodi"><option value="">Semua prodi</option></select>
+        </label>
+        <button type="button" class="btn ghost" id="theme-toggle" aria-label="Ganti tema">Tema</button>
+      </div>
+    </header>
+
+    <section class="panel" id="panel">
+      <div class="panel-head">
+        <div>
+          <h1 id="panel-title">Kelas perkuliahan</h1>
+          <p class="hint" id="panel-desc"></p>
+        </div>
+        <div class="panel-actions" id="panel-actions"></div>
+      </div>
+
+      <form class="filters" id="filters" autocomplete="off"></form>
+
+      <div class="resultbar" id="resultbar" hidden>
+        <div id="summary" class="summary"></div>
+        <div class="resultbar-actions">
+          <button type="button" class="btn ghost" id="export-filtered" hidden>Unduh hasil terfilter</button>
+          <button type="button" class="btn" id="export-all" hidden>Unduh semua hasil</button>
+        </div>
+      </div>
+
+      <div class="table-wrap" id="table-wrap" hidden>
+        <div class="table-tools">
+          <label class="field inline" for="table-search">
+            <span>Cari di hasil</span>
+            <input type="search" id="table-search" aria-label="Cari di hasil"
+              placeholder="NIM, nama, kode...">
+          </label>
+          <label class="check" for="only-issues">
+            <input type="checkbox" id="only-issues" aria-label="Hanya tampilkan anomali"> Hanya anomali
+          </label>
+          <span class="hint" id="table-count"></span>
+        </div>
+        <div class="table-scroll">
+          <table id="table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="pager" id="pager"></div>
+      </div>
+
+      <div class="preview" id="preview" hidden>
+        <div class="preview-head">
+          <h2 id="preview-title">Preview perubahan</h2>
+          <p class="hint" id="preview-summary"></p>
+        </div>
+        <div class="table-scroll">
+          <table id="preview-table"><thead></thead><tbody></tbody></table>
+        </div>
+        <div class="preview-actions">
+          <button type="button" class="btn" id="apply-selected">Terapkan perubahan terpilih</button>
+          <button type="button" class="btn ghost" id="preview-close">Tutup</button>
+        </div>
+      </div>
+
+      <div class="jobbar" id="jobbar" hidden>
+        <progress id="job-progress" value="0" max="100"></progress>
+        <span id="job-label">Memuat</span>
+        <button type="button" class="btn ghost small" id="job-cancel">Batalkan</button>
+      </div>
+
+      <div class="states" id="states">
+        <p class="state" id="state-empty">Pilih filter lalu tekan Tarik data.</p>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="connect" id="connect">
+  <form class="connect-card" id="connect-form" autocomplete="off">
+    <h1>Hubungkan ke Feeder</h1>
+    <p class="hint">Masukkan alamat Feeder dan token dari DevTools > Application >
+      Local Storage > <code>_token</code>. Token hanya disimpan di memori server lokal ini.</p>
+    <div class="env-box" id="env-box" hidden>
+      <p class="hint" id="env-status"></p>
+      <div class="connect-actions">
+        <button type="button" class="btn" id="connect-env-btn">Hubungkan dengan token .env</button>
+        <button type="button" class="btn ghost" id="check-env-btn">Cek ulang token .env</button>
+      </div>
+    </div>
+    <label class="field" for="address">
+      <span>Alamat Feeder</span>
+      <input id="address" name="address" required aria-label="Alamat Feeder"
+        placeholder="localhost:8100 atau https://feeder.kampus.ac.id">
+    </label>
+    <label class="field" for="token">
+      <span>Token</span>
+      <input id="token" name="token" type="password" required spellcheck="false"
+        aria-label="Token Feeder"
+        autocomplete="off" placeholder="tempel token di sini">
+    </label>
+    <div class="connect-actions">
+      <button type="submit" class="btn" id="connect-btn">Cek koneksi dan token</button>
+    </div>
+    <p class="error" id="connect-error" hidden></p>
+  </form>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
